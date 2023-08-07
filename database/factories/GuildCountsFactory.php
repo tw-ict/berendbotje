@@ -20,7 +20,7 @@ class GuildCountsFactory extends Factory
     {
         return [
             'guild_id' => $this->faker->randomKey,
-            'current_count_id' => $this->faker->randomKey,
+            'id' => $this->faker->randomKey,
         ];
     }
 }

@@ -15,7 +15,7 @@ class GuildCounts extends Model
 
     protected $table = 'guild_count_threads';
 
-    protected $fillable = ['current_count_id', 'guild_id'];
+    protected $fillable = ['guild_id'];
 
 
     /**

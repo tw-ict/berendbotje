@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('guild_id');
             $table->foreign('guild_id')->references('id')->on('guilds');
-            $table->string('current_count_id');
             $table->timestamps();
         });
     }

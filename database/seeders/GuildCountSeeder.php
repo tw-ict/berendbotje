@@ -17,7 +17,7 @@ class GuildCountSeeder extends Seeder
     public function processSettings(Guild $guildModel): void
     {
         GuildCounts::factory()->create([
-            'current_count_id' => 1,
+            'id' => 1,
             'guild_id' => $guildModel->id,
         ]);
     }

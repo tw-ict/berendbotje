@@ -10,6 +10,7 @@ use Database\Seeders\LogSettingsSeeder;
 use Database\Seeders\MentionResponderSeeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\SettingsSeeder;
+use Database\Seeders\GuildCountSeeder;
 use Discord\Discord;
 use Discord\Parts\Guild\Guild;
 use Discord\WebSockets\Event;
@@ -48,6 +49,8 @@ class GuildCreate extends DiscordEvent implements GUILD_CREATE
             $roleSeeder->createAdminRole($guildModel, $owner);
             $roleSeeder->createModRole($guildModel);
             (new MentionResponderSeeder())->processMentionGroups($guildModel);
+
+            (new GuildCountSeeder())->processSettings($guildModel);
 
             $this->bot->addGuild($guildModel);
         }

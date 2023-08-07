@@ -7,13 +7,11 @@ use App\Domain\Discord\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Database\Factories\GuildCountsFactory;
-
-class GuildCounts extends Model
+class GuildThreads extends Model
 {
     use HasFactory;
 
-    protected $table = 'guild_count_threads';
+    protected $table = 'count_threads';
 
     protected $fillable = ['guild_id'];
 
@@ -27,12 +25,6 @@ class GuildCounts extends Model
         return self::where('guild_id', Guild::get($guildId)->id);
     }
 
-    /**
-     * @return GuildCountsFactory
-     */
-    protected static function newFactory(): GuildCountsFactory
-    {
-        return GuildCountsFactory::new();
-    }
+
 
 }

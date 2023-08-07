@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('guild_id');
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('current_count_thread');
+            $table->foreign('current_count_thread')->references('id')->on('guild_count_threads');
             $table->foreign('guild_id')->references('id')->on('guilds');
             $table->foreign('user_id')->references('id')->on('discord_users');
             $table->timestamps();

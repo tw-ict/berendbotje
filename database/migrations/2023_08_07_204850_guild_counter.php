@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('guild_counts', function (Blueprint $table) {
+        Schema::create('guild_count_threads', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('guild_id');
             $table->foreign('guild_id')->references('id')->on('guilds');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guild_counts');
+        Schema::dropIfExists('guild_count_threads');
     }
 };

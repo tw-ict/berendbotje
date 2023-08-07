@@ -13,7 +13,7 @@ class GuildCounts extends Model
 {
     use HasFactory;
 
-    protected $table = 'guild_counts';
+    protected $table = 'guild_count_threads';
 
     protected $fillable = ['current_count_id', 'guild_id'];
 

@@ -6,6 +6,8 @@ use App\Discord\Core\Bot;
 use App\Discord\Core\Guild;
 use App\Discord\Core\Interfaces\MessageCreateAction;
 use App\Domain\Discord\Channel;
+use App\Domain\Discord\User;
+use App\Domain\Fun\Models\CountThread;
 use App\Domain\Moderation\Models\Abuser;
 use App\Domain\Setting\Enums\Setting as SettingEnum;
 use Discord\Builders\MessageBuilder;
@@ -43,6 +45,14 @@ class MessageCount implements MessageCreateAction
                 return;
             }
 
+            if(CountThread::byGuild($message->guild_id)->get()->isEmpty())
+            {
+                CountThread::create(['guild_id' => \App\Domain\Discord\Guild::get($message->guild_id)->id]);
+            }
+
+            $thread = CountThread::byGuild($message->guild_id)->get()->last();
+
+
             if ($number !== $newCount) {
                 $count = 0;
                 $this->lastCount = "";
@@ -50,6 +60,8 @@ class MessageCount implements MessageCreateAction
                 $message->react("❌");
                 Abuser::create(['discord_id' => $message->author->id, 'guild_id' => $message->guild_id, 'reason' => __('bot.cannot-count')]);
                 $message->channel->sendMessage(MessageBuilder::new()->setContent(__('bot.wrong-number', ['count' => $count])));
+
+                CountThread::create(['guild_id' => \App\Domain\Discord\Guild::get($message->guild_id)->id]);
                 return;
             }
 
@@ -57,7 +69,10 @@ class MessageCount implements MessageCreateAction
             $count++;
             $guildModel->setSetting(SettingEnum::CURRENT_COUNT->value, $count);
 
+            $thread->users()->attach(User::get($message->author->id), ['count' => $count]);
+
             $message->react("✅");
+
         } else {
             $message->delete();
         }

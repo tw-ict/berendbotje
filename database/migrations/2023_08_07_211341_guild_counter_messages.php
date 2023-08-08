@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('count_thread_users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('count_thread');
+            $table->unsignedBigInteger('count_thread_id');
             $table->unsignedBigInteger('count');
-            $table->foreign('count_thread')->references('id')->on('count_threads');
+            $table->foreign('count_thread_id')->references('id')->on('count_threads');
             $table->foreign('user_id')->references('id')->on('discord_users');
             $table->timestamps();
         });
